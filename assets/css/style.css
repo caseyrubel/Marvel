@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+  background: url("../images/marvel.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+button {
+	background-color: black; 
+    border: solid 1px;
+    border-color: white;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#fight {
+	margin-top: 80px;
+}
+.par {
+	font-size: 20px;
+}
+
