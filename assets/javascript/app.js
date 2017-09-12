@@ -12,6 +12,18 @@ var db = firebase.database();
 var ref = db.ref();
 
 // character arrays
+var charObject = {
+    hulk:"the Hulk, a green-skinned, hulking and muscular humanoid possessing a vast degree of physical strength, and his alter ego Bruce Banner, a physically weak, socially withdrawn, and emotionally reserved physicist, the two existing as personalities independent and resenting of the other.",
+    irnMn:"Origins. Anthony Edward Stark, the son of wealthy industrialist and head of Stark Industries, Howard Stark, and Maria Stark. A boy genius, he enters MIT at the age of 15 to study electrical engineering and later receives master's degrees in electrical engineering and physics",
+    cptnA: "Captain America has no superhuman powers, but through the Super-Soldier Serum treatment, he is transformed and his strength, endurance, agility, speed, reflexes, durability, and healing are at the zenith of natural human potential.",
+    thor: "As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made, the enchanted hammer Mjolnir.",
+    blkWdw:"is one of the best spies and assassins in the world. Originally an agent of the Soviet agency for foreign intelligence, the KGB; she later became a member of S.H.I.E.L.D.",
+    loki: "Loki is one of several powerful beings from the magical realm of Asgard, who have been worshipped as gods",
+    sLee: "Author of Marvel Comics",
+    mag: "The character is a powerful mutant, one of a fictional subspecies of humanity born with superhuman abilities, who has the ability to generate and control magnetic fields.",
+    rSkl: "a supervillain, appearing in American comic books published by Marvel Comics. The character is usually depicted as the archenemy of the superhero Captain America",
+    ult: "He is most recognized as a nemesis of the Avengers, and has a quasi-familial relationship with his creator Hank Pym.",
+}
 var heroNames = ['Hulk', 'Iron man', 'Captain America', 'Thor', 'Black Widow'];
 var heroIds = ['hulk', 'irnMn', 'cptnA', 'thor', 'blkWdw'];
 var villainNames = ['Loki', "Stan Lee", "Magneto", 'Red Skull', 'Ultron'];
@@ -68,74 +80,75 @@ var oppWins;
 
 var horizontalBarChartData;
 
+
 //FUNCTIONS
 function battle(o1, h1, d1, chnc1, o2, h2, d2, chnc2) {
 
-  yourWins = 0;
-  oppWins = 0;
+    yourWins = 0;
+    oppWins = 0;
     //for loop to run fight simulator specified # of times
-    for(var i = 1; i <= 100; i++) {
-      var yourDmg = h1-d2;
-      var oppDmg = h2-d1;
-      var fight = true;
-      //run while loop as long as both chars are above 0 hp
-      while(fight == true) {
-        var dodge1 = Math.random();
-        var dodge2 = Math.random();
-        //set if statement to determine if health remains for either char
-        if (yourDmg > 0 && oppDmg > 0) {
-          //set if statement to determine if there is a miss for your char
-          if(chnc2 > dodge2) {
-          //variable to set crit chance
-            var critChance = Math.random();
-            //if statement to determine if a crit was landed for your char
-            if(critChance > .75) {
-              var crit = Math.random();
-              crit +=1;
-              o2 = o2*crit;
-              yourDmg -=o2;
+    for (var i = 1; i <= 100; i++) {
+        var yourDmg = h1 - d2;
+        var oppDmg = h2 - d1;
+        var fight = true;
+        //run while loop as long as both chars are above 0 hp
+        while (fight == true) {
+            var dodge1 = Math.random();
+            var dodge2 = Math.random();
+            //set if statement to determine if health remains for either char
+            if (yourDmg > 0 && oppDmg > 0) {
+                //set if statement to determine if there is a miss for your char
+                if (chnc2 > dodge2) {
+                    //variable to set crit chance
+                    var critChance = Math.random();
+                    //if statement to determine if a crit was landed for your char
+                    if (critChance > .75) {
+                        var crit = Math.random();
+                        crit += 1;
+                        o2 = o2 * crit;
+                        yourDmg -= o2;
+                    } else {
+                        yourDmg -= o2;
+                    };
+                    //end crit if
+                } else {
+                    d1 += .01;
+                };
+                //end opp dodge chance if
+                //set if statement to determine if there is a miss for the opp char      
+                if (chnc1 > dodge1) {
+                    //variable to set crit chance
+                    var critChance = Math.random();
+                    //if statement to determine if a crit was landed for the opp
+                    if (critChance > .75) {
+                        var crit = Math.random();
+                        crit += 1;
+                        o1 = o1 * crit;
+                        oppDmg -= o1;
+                    } else {
+                        oppDmg -= o1;
+                    };
+                    //end opp crit chance if
+                } else {
+                    d2 += .01;
+                };
+                //end opp dodge
+                fight = true;
             } else {
-              yourDmg -= o2;
+                fight = false;
+                //if statement to assign wins
+                if (yourDmg > 0) {
+                    yourWins += 1;
+                } else {
+                    oppWins += 1;
+                };
+                //end wins if
             };
-            //end crit if
-          } else {
-            d1+=.01;
-          };
-          //end opp dodge chance if
-        //set if statement to determine if there is a miss for the opp char      
-          if(chnc1 > dodge1) {
-            //variable to set crit chance
-            var critChance = Math.random();
-            //if statement to determine if a crit was landed for the opp
-            if(critChance > .75) {
-              var crit = Math.random();
-              crit +=1;
-              o1 = o1*crit;
-              oppDmg -= o1;
-            } else {
-              oppDmg -= o1;
-            };
-            //end opp crit chance if
-          } else {
-            d2+=.01;
-          };
-          //end opp dodge
-          fight = true;
-        } else {
-          fight = false;
-          //if statement to assign wins
-          if(yourDmg > 0) {
-          yourWins +=1;  
-          } else {
-            oppWins +=1; 
-          };
-          //end wins if
-      };
-      //end health above 0 if statement 
+            //end health above 0 if statement 
+        };
+        //end while loop
     };
-    //end while loop
-  };
-  //end for loop
+    //end for loop
 };
 //end battle function
 
@@ -166,21 +179,27 @@ $('.char').mouseenter(function() {
     var charNameStats = $(this).children('h3').html();
     var charIdStats = $(this).children('img').attr('id');
 
-    var capCall = "https://gateway.marvel.com:443/v1/public/characters?name=" + charNameStats + "&apikey=a81b78c534562c5384986ee7dad0b0f7a124e249";
+    // var capCall = "https://gateway.marvel.com:443/v1/public/characters?name=" + charNameStats + "&apikey=a81b78c534562c5384986ee7dad0b0f7a124e249";
 
-   $.ajax({
-        url: capCall,
-        method: 'GET'
-   }).done(function(response) {
-       console.log(response);
-        heroAtt = response.attributionHTML;
-        mHeroInfo = response.data.results.description;  
-    });
+    // $.ajax({
+    //     url: capCall,
+    //     method: 'GET'
+    // }).done(function(response) {
+    //     console.log(response);
+    //     heroAtt = response.attributionHTML;
+    //     mHeroInfo = response.data.results.description;
 
+    // });
 
+    
+    var heroImage = $('<img>', {src: ('assets/images/' + charIdStats + ".jpg"), alt: charIdStats });
+    heroImage.css("width", "100%");
+    heroImage.css("height", "200px");
+    console.log(charObject.charIdStats)
     var charInfo = $("<h1>")
     charInfo.html(charNameStats);
-    charInfo.append("<p class='par'>" + mHeroInfo + "</p>"); // will be mHeroInfo
+    charInfo.append("<p class='par'>" + charObject[charIdStats] + "</p>"); // will be mHeroInfo
+    charInfo.append(heroImage);
     charboxStats = $("<div>", { id: charIdStats, class: 'text-center panel-body' });
     charboxStats.css("background-color", "black")
     charboxStats.css("color", "white")
@@ -358,92 +377,93 @@ color = Chart.helpers.color;
 
 $('#fight').click(function() {
 
-    // remove <canvas> element to enable new chart creation
-    $('#chart').remove('#canvas');
-    $('#chart').append('<canvas id="canvas"><canvas>');
+// remove <canvas> element to enable new chart creation
+$('#chart').remove('#canvas');
+$('#chart').append('<canvas id="canvas"><canvas>');
 
-    // creates new chart every fight
-    horizontalBarChartData = {
-        labels: ["Durability", "Energy", "Fighting", "Intelligence", "Speed", "Strength"],
-        datasets: [{
-            label: yourName,
-            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.red,
-            borderWidth: 1,
-            data: [
-                yourDur,
-                yourNrg,
-                yourAtk,
-                yourInt,
-                yourSpd,
-                yourStr
-            ]
-        }, {
-            label: oppName,
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.blue,
-            data: [
-                oppDur,
-                oppNrg,
-                oppAtk,
-                oppInt,
-                oppSpd,
-                oppStr
-            ]
-        }]
-    };
+// creates new chart every fight
+horizontalBarChartData = {
+    labels: ["Durability", "Energy", "Fighting", "Intelligence", "Speed", "Strength"],
+    datasets: [{
+        label: yourName,
+        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+        borderColor: window.chartColors.red,
+        borderWidth: 1,
+        data: [
+            yourDur,
+            yourNrg,
+            yourAtk,
+            yourInt,
+            yourSpd,
+            yourStr
+        ]
+    }, {
+        label: oppName,
+        backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+        borderColor: window.chartColors.blue,
+        data: [
+            oppDur,
+            oppNrg,
+            oppAtk,
+            oppInt,
+            oppSpd,
+            oppStr
+        ]
+    }]
+};
 
-    var ctx = document.getElementById("canvas").getContext("2d");
-    window.myHorizontalBar = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: horizontalBarChartData,
-        options: {
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                rectangle: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            legend: {
-                position: 'right',
-            },
-            title: {
-                display: true,
-                text: 'Fighter Data Comparison'
+var ctx = document.getElementById("canvas").getContext("2d");
+window.myHorizontalBar = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: horizontalBarChartData,
+    options: {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide
+        elements: {
+            rectangle: {
+                borderWidth: 2,
             }
+        },
+        responsive: true,
+        legend: {
+            position: 'right',
+        },
+        title: {
+            display: true,
+            text: 'Fighter Data Comparison'
         }
-    });
-
-    //display 
-    $("#canvas").addClass("panel-body");
-    $("#canvas").css("background-color", 'black');
-    $("#canvas").css("background-color", "black")
-    $("#canvas").css("color", "white")
-    $("#canvas").addClass("panel panel-default")
-
-    battle(yourO, yourHp, yourD, yourChnc, oppO, oppHp, oppD, oppChnc);
-    var battleInfoP;
-    if (yourWins > oppWins) {
-        battleInfoP = $('<p> ' + yourName + " would win " + yourWins + " out of 100 battles! </p>")
-    } else {
-        battleInfoP = $('<p> ' + oppName + " would win " + oppWins + " out of 100 battles! </p>")
     }
-
-    $('#infoBox').empty();
-
-    var battleInfo = $("<div>", { class: 'text-center panel-body' });
-    battleInfo.css("background-color", "black")
-    battleInfoP.css("color", "white")
-    battleInfo.addClass("panel panel-default")
-    battleInfo.append(battleInfoP);
-    $('#infoBox').append(battleInfo);
-
-    $('#infoBox').append();
-    $('#statBoxOne').empty();
-    $('#statBoxTwo').empty();
-    $('#fight').empty();
-    $('#done').append(doneBtn);
-    second = false;
 });
+
+//display 
+$("#canvas").addClass("panel-body");
+$("#canvas").css("background-color", 'black');
+$("#canvas").css("background-color", "black")
+$("#canvas").css("color", "white")
+$("#canvas").addClass("panel panel-default")
+
+battle(yourO, yourHp, yourD, yourChnc, oppO, oppHp, oppD, oppChnc);
+var battleInfoP;
+if (yourWins > oppWins) {
+    battleInfoP = $('<p> ' + yourName + " would win " + yourWins + " out of 100 battles! </p>")
+} else {
+    battleInfoP = $('<p> ' + oppName + " would win " + oppWins + " out of 100 battles! </p>")
+}
+
+$('#infoBox').empty();
+
+var battleInfo = $("<div>", { class: 'text-center panel-body' });
+battleInfo.css("background-color", "black")
+battleInfoP.css("color", "white")
+battleInfo.addClass("panel panel-default")
+battleInfo.append(battleInfoP);
+$('#infoBox').append(battleInfo);
+
+$('#infoBox').append();
+$('#statBoxOne').empty();
+$('#statBoxTwo').empty();
+$('#fight').empty();
+$('#done').append(doneBtn);
+second = false;
+});
+
