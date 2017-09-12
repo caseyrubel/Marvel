@@ -11,16 +11,16 @@ This repository is a web application that compares marvel heroes and villians. T
 
 * When the user hovers over a character, a panel showing a picture and a desrciption of the hero appears in the main section of the screen.
 
-<img src="app/public/img/SS2.png" height="400" width="400">
+<img src="assets/images/SS2.png" height="400" width="400">
 
 * When the user clicks a character, a gif of the hero or villain appears in the main section. When the next character is selected a battle button appears.
 
 
-<img src="app/public/img/SS3.png" height="400" width="400">
+<img src="assets/images/SS3.png" height="400" width="400">
 
 * When the battle button is clicked, an algorithm that uses the official hero stats from marvel.com is run 100 times. A panel appears that shows the results of these 'battles' with a comparison graph of the characters below.
 
-<img src="app/public/img/SS4.png" height="400" width="400">
+<img src="assets/images/SS4.png" height="400" width="400">
 
 
 #### Contributors:
